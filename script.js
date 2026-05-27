@@ -1,92 +1,155 @@
-let tasks = [];
+const products = [
+{
+id:1,
+name:"Laptop",
+price:50000,
+image:"https://via.placeholder.com/250x180?text=Laptop"
+},
+{
+id:2,
+name:"Mobile",
+price:20000,
+image:"https://via.placeholder.com/250x180?text=Mobile"
+},
+{
+id:3,
+name:"Headphones",
+price:3000,
+image:"https://via.placeholder.com/250x180?text=Headphones"
+},
+{
+id:4,
+name:"Smart Watch",
+price:5000,
+image:"https://via.placeholder.com/250x180?text=Watch"
+}
+];
 
-function addTask(){
+let cart=[];
 
-    const titleInput = document.getElementById("taskTitle");
-    const statusInput = document.getElementById("taskStatus");
+const productContainer =
+document.getElementById("productContainer");
 
-    const title = titleInput.value.trim();
-    const status = statusInput.value;
+function displayProducts(){
 
-    if(title === ""){
-        alert("Please enter task title");
-        return;
-    }
+productContainer.innerHTML="";
 
-    const task = {
-        id: Date.now(),
-        title: title,
-        status: status
-    };
+products.forEach(product=>{
 
-    tasks.push(task);
-
-    displayTasks();
-
-    titleInput.value = "";
+productContainer.innerHTML += `
+<div class="product">
+<img src="${product.image}">
+<h3>${product.name}</h3>
+<p>₹${product.price}</p>
+<button onclick="addToCart(${product.id})">
+Add To Cart
+</button>
+</div>
+`;
+});
 }
 
-function displayTasks(){
+function addToCart(id){
 
-    const taskList = document.getElementById("taskList");
+const product =
+products.find(p=>p.id===id);
 
-    taskList.innerHTML = "";
+cart.push(product);
 
-    tasks.forEach(task => {
-
-        const taskCard = document.createElement("div");
-
-        taskCard.classList.add("task-card");
-
-        taskCard.innerHTML = `
-        
-            <h3>${task.title}</h3>
-
-            <div class="status">
-                Status: ${task.status}
-            </div>
-
-            <div class="buttons">
-
-                <button 
-                    class="edit-btn"
-                    onclick="editTask(${task.id})"
-                >
-                    Edit
-                </button>
-
-                <button 
-                    class="delete-btn"
-                    onclick="deleteTask(${task.id})"
-                >
-                    Delete
-                </button>
-
-            </div>
-        `;
-
-        taskList.appendChild(taskCard);
-
-    });
+updateCart();
 }
 
-function deleteTask(id){
+function updateCart(){
 
-    tasks = tasks.filter(task => task.id !== id);
+const cartItems =
+document.getElementById("cartItems");
 
-    displayTasks();
+cartItems.innerHTML="";
+
+let total=0;
+
+cart.forEach((item,index)=>{
+
+total += item.price;
+
+cartItems.innerHTML += `
+<div class="cart-item">
+<span>
+${item.name} - ₹${item.price}
+</span>
+
+<button
+class="remove-btn"
+onclick="removeItem(${index})">
+Remove
+</button>
+</div>
+`;
+});
+
+document.getElementById("cartCount")
+.innerText=cart.length;
+
+document.getElementById("totalPrice")
+.innerText=total;
 }
 
-function editTask(id){
+function removeItem(index){
 
-    const task = tasks.find(task => task.id === id);
+cart.splice(index,1);
 
-    const newTitle = prompt("Edit Task Title", task.title);
-
-    if(newTitle !== null && newTitle.trim() !== ""){
-
-        task.title = newTitle;
-
-        displayTasks();
-    }
+updateCart();
 }
+
+function checkout(){
+
+if(cart.length===0){
+alert("Cart is empty");
+return;
+}
+
+alert("Order placed successfully!");
+
+cart=[];
+
+updateCart();
+}
+
+function login(){
+
+const username=
+document.getElementById("username").value;
+
+const role=
+document.getElementById("role").value;
+
+if(username===""){
+alert("Enter username");
+return;
+}
+
+localStorage.setItem("user",username);
+localStorage.setItem("role",role);
+
+document.getElementById("welcome")
+.innerText =
+`Welcome ${username} (${role})`;
+}
+
+window.onload=()=>{
+
+displayProducts();
+
+const user=
+localStorage.getItem("user");
+
+const role=
+localStorage.getItem("role");
+
+if(user){
+
+document.getElementById("welcome")
+.innerText=
+`Welcome ${user} (${role})`;
+}
+};

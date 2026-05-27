@@ -3,159 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keerthana Portfolio</title>
+    <title>Task Management App</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Header Section -->
+    <div class="container">
 
-    <header>
+        <h1>Task Management Application</h1>
 
-        <h1>Keerthana Portfolio</h1>
+        <div class="task-input">
 
-        <p>
-            Full Stack Developer | Web Developer | Student
-        </p>
+            <input 
+                type="text" 
+                id="taskTitle" 
+                placeholder="Enter task title"
+            >
 
-    </header>
+            <select id="taskStatus">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
 
-    <!-- About Section -->
-
-    <section class="about">
-
-        <h2>About Me</h2>
-
-        <p>
-            I am passionate about web development and programming.
-            I build responsive websites using HTML, CSS,
-            JavaScript, Node.js and MongoDB.
-        </p>
-
-    </section>
-
-    <!-- Skills Section -->
-
-    <section class="skills-section">
-
-        <h2>Skills</h2>
-
-        <div class="skills">
-
-            <div class="skill-box">HTML</div>
-            <div class="skill-box">CSS</div>
-            <div class="skill-box">JavaScript</div>
-            <div class="skill-box">Node.js</div>
-            <div class="skill-box">MongoDB</div>
-            <div class="skill-box">Python</div>
+            <button onclick="addTask()">
+                Add Task
+            </button>
 
         </div>
 
-    </section>
-
-    <!-- Projects Section -->
-
-    <section class="projects-section">
-
-        <h2>Projects</h2>
-
-        <div class="projects-container">
-
-            <!-- Project 1 -->
-
-            <div class="project-card">
-
-                <h3>AI Chatbot</h3>
-
-                <p>
-                    A rule-based chatbot developed using Python
-                    to answer user queries automatically.
-                </p>
-
-                <p>
-                    <strong>Technologies:</strong>
-                    Python, NLP
-                </p>
-
-                <a href="https://github.com/" target="_blank">
-                    View Project
-                </a>
-
-            </div>
-
-            <!-- Project 2 -->
-
-            <div class="project-card">
-
-                <h3>Portfolio Website</h3>
-
-                <p>
-                    A responsive personal portfolio website
-                    developed using HTML, CSS and JavaScript.
-                </p>
-
-                <p>
-                    <strong>Technologies:</strong>
-                    HTML, CSS, JavaScript
-                </p>
-
-                <a href="https://github.com/" target="_blank">
-                    View Project
-                </a>
-
-            </div>
-
-            <!-- Project 3 -->
-
-            <div class="project-card">
-
-                <h3>Weather App</h3>
-
-                <p>
-                    A weather application that displays weather
-                    information using API integration.
-                </p>
-
-                <p>
-                    <strong>Technologies:</strong>
-                    HTML, CSS, JavaScript, API
-                </p>
-
-                <a href="https://github.com/" target="_blank">
-                    View Project
-                </a>
-
-            </div>
+        <div id="taskList" class="task-list">
 
         </div>
 
-    </section>
-
-    <!-- Contact Section -->
-
-    <section class="contact">
-
-        <h2>Contact</h2>
-
-        <p>Email: keerthana@gmail.com</p>
-
-        <p>GitHub: github.com/keerthana</p>
-
-    </section>
-
-    <!-- Footer -->
-
-    <footer>
-
-        <p>
-            © 2026 Keerthana Portfolio
-        </p>
-
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 
 </body>
-
 </html>

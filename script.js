@@ -1,37 +1,92 @@
-// Welcome Message
+let tasks = [];
 
-console.log("Portfolio Website Loaded Successfully");
+function addTask(){
 
-// Project Card Animation
+    const titleInput = document.getElementById("taskTitle");
+    const statusInput = document.getElementById("taskStatus");
 
-const projectCards = document.querySelectorAll(".project-card");
+    const title = titleInput.value.trim();
+    const status = statusInput.value;
 
-projectCards.forEach((card) => {
+    if(title === ""){
+        alert("Please enter task title");
+        return;
+    }
 
-    card.addEventListener("mouseenter", () => {
+    const task = {
+        id: Date.now(),
+        title: title,
+        status: status
+    };
 
-        card.style.backgroundColor = "#f0f8ff";
+    tasks.push(task);
+
+    displayTasks();
+
+    titleInput.value = "";
+}
+
+function displayTasks(){
+
+    const taskList = document.getElementById("taskList");
+
+    taskList.innerHTML = "";
+
+    tasks.forEach(task => {
+
+        const taskCard = document.createElement("div");
+
+        taskCard.classList.add("task-card");
+
+        taskCard.innerHTML = `
+        
+            <h3>${task.title}</h3>
+
+            <div class="status">
+                Status: ${task.status}
+            </div>
+
+            <div class="buttons">
+
+                <button 
+                    class="edit-btn"
+                    onclick="editTask(${task.id})"
+                >
+                    Edit
+                </button>
+
+                <button 
+                    class="delete-btn"
+                    onclick="deleteTask(${task.id})"
+                >
+                    Delete
+                </button>
+
+            </div>
+        `;
+
+        taskList.appendChild(taskCard);
 
     });
+}
 
-    card.addEventListener("mouseleave", () => {
+function deleteTask(id){
 
-        card.style.backgroundColor = "white";
+    tasks = tasks.filter(task => task.id !== id);
 
-    });
+    displayTasks();
+}
 
-});
+function editTask(id){
 
-// Skill Box Click Effect
+    const task = tasks.find(task => task.id === id);
 
-const skillBoxes = document.querySelectorAll(".skill-box");
+    const newTitle = prompt("Edit Task Title", task.title);
 
-skillBoxes.forEach((skill) => {
+    if(newTitle !== null && newTitle.trim() !== ""){
 
-    skill.addEventListener("click", () => {
+        task.title = newTitle;
 
-        alert(skill.innerText + " Skill Selected");
-
-    });
-
-});
+        displayTasks();
+    }
+}
